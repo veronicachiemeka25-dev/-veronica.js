@@ -12,20 +12,21 @@ app.get("/", (req, res) => {
   res.send("My Week 2 API!")
 });
 
-// Registration route
-app.post("/register", (req, res) => {
+// POST /user -> Accepts {name, email} and responds with "Hello, [name]!"
+app.post("/user", (req, res) => {
     const { name, email } = req.body;
     if (!name || !email) { 
-      return res.status(400). json({ error: "Missing fields" });
+      return res.status(400). json({ error: "Name and email are required!" });
     }
 
 // Simulate DB save
-    res.status(201).json({ message: `Registered: ${name} (${email})` });
+    res.status(200).json({ responds: `Hello, ${name}!` });
     });
     
-
+// GET /user/:id -> Dynamic profile endpoint responding with "User [id] profile"
 app.get('/user/:id', (req, res) => {
-  res.json({ id: req.params.id, name: "Sample User"});  
+  const userid = req.params.id;
+  res.json( `User ${userid} profile`);  
 });
 
 app.listen(3000, () => console.log('API live on port 3000'));
